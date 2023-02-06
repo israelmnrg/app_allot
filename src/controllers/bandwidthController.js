@@ -1,49 +1,31 @@
 /**
  * @module controllers/bandwidthController
- * 
-*/
-const bandwidthService = require('../services/bandwidthService')
-const express = require('express');
-
-/**
- * Este método obtiene la información de la tabla de ancho de banda por el id del usuario
- * y la envía a la vista
- * @param {express.Request} req request con el id del usuario
- * @param {express.Response} res response
- * @param {express.NextFunction} next next
  */
-const getInfoByUserId = async (req, res, next) => {
+const bandwidthService = require('../services/bandwidthService');
+const express = require('express');
+/**
+ * Método para obtener todos los ancho de banda
+ * @param {express.Request} req request con la información de las urls, el endpoint, el usuario y la contraseña
+ * @param {express.Response} res response
+ */
+async function getAllBandwidths (req, res) {
+    const { body } = req;
 
-    try {
-        const allBandwidths = await bandwidthService.getInfoByUserId(req.user.contractId);
-        if (allBandwidths.length != 0) {
-            req.col1 = allBandwidths[0].period;
-            req.col2 = allBandwidths[0].value;
-            req.info = allBandwidths;
-            req.date = allBandwidths.map((item) => item.date);
-            req.megas = allBandwidths.map((item) => item.size);
-            req.megas1 = new Array(req.megas.length);
-            req.megas2 = new Array(req.megas.length);
-            req.megas3 = new Array(req.megas.length);
-            for (var i = 0; i < req.megas.length; i++) {
-                req.megas1[i] = req.megas[i].split(",")[0].split(" ")[0];
-                req.megas2[i] = req.megas[i].split(",")[1].split(" ")[1];
-                req.megas3[i] = req.megas[i].split(",")[2].split(" ")[1];
-            }
-
-            res.status(200);
-            res.render('index', {user: req.user, info: req.info, col1: req.col1, 
-                col2: req.col2, date: req.date, size1: req.megas1, size2: req.megas2, size3: req.megas3});
-            next();
-        } else {  
-            req.info = allBandwidths;
-            res.render('index', {user: req.user, info: req.info, col1: "" , col2: "", date: "", size1: "", size2: "", size3: ""});
-            next();
-        }
-
-    } catch (error) {
-        res.status(error?.status || 500).send({ status: "FAILED", data: { error: error?.message || error } });
+    const urls = body.urls;
+    const endpoint = body.endpoint;
+    const user = body.user;
+    const password = body.password;
+    const bandwidths = await bandwidthService.getAllBandwidths(urls, endpoint, user, password);
+    if(bandwidths==undefined){
+        setTimeout(() => {
+        }, 60000);
+    }else{
+    console.log(bandwidths);
+    res.status(201).send( bandwidths );
     }
 };
 
-module.exports = { getInfoByUserId }
+module.exports = {
+    getAllBandwidths
+};
+

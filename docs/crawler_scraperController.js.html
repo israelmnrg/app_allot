@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: services/bandwidthService.js</title>
+    <title>JSDoc: Source: crawler/scraperController.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: services/bandwidthService.js</h1>
+    <h1 class="page-title">Source: crawler/scraperController.js</h1>
 
     
 
@@ -27,25 +27,41 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module servicses/bandwidthService
+ * @module crawler
  */
-const Bandwith = require('../crawler/Bandwidth');
+const { Browser } = require('puppeteer');
+const pageScraper = require('./scraperService.js');
 
 /**
- * Metodo para obtener todos los ancho de banda
+ * Método que se encarga de hacer el crawler de las paginas que queremos
+ * @param {Browser} browserInstance navegador
  * @param {String} urls urls de las paginas que queremos hacer el crawler
  * @param {String} endpoint endpoint de la api
  * @param {String} user usuario de la api
  * @param {String} password contraseña del usuario
- * @returns {Promise} lista de ancho de banda
  */
-const getAllBandwidths = async (urls, endpoint, user, password) => {
-    const allBandwith = await Bandwith.getAllBandwidths(urls, endpoint, user, password);
-    return allBandwith;
+async function scrapeAll(browserInstance, urls, endpoint, user, password) {
+    let browser;
+    let extractedData = [];
+
+    try {
+        browser = await browserInstance;
+
+        // Extraer datos de la página
+        extractedData = await pageScraper.scraper(browser, urls, endpoint, user, password);
+        await browser.close();  //cerramos el navegador
+        console.log("navegador cerrado");
+
+        return extractedData;
+    }
+    catch (err) {
+        await browser.close();
+        console.log("No se ha podido resolver el navegador => ", err);
+    }
 }
 
 module.exports = {
-    getAllBandwidths
+    scrapeAll
 };</code></pre>
         </article>
     </section>

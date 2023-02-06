@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: crawler/browser.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,43 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: crawler/browser.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module crawler
+ */
+const puppeteer = require('puppeteer');
 
+/**
+ * Inicia el navegador para hacer el crawler
+ * @returns {puppeteer.Browser} devuelve el navegador
+ */
+async function initBrowser() {
+    let browser;
+    try {
+        console.log("abriendo navegador");
+        browser = await puppeteer.launch(
+            {
+                 headless: false //hace que se muestre el navegador 
+            });
+    } catch (error) {
+        console.log("error al abrir el navegador");
+    }
+    return browser;
+}
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports = {
+    initBrowser
+}</code></pre>
+        </article>
+    </section>
 
 
 

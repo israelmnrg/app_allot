@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: crawler/login.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,51 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: crawler/login.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module crawler
+ */
+/**
+ * Funcion que se encarga de hacer el login en la pagina
+ * @param {String} endpoint endpoint de la pagina
+ * @param {String} user usuario del login
+ * @param {String} password contraseña del usuario
+ * @param {String} page pagina que se va a usar para hacer el login
+ */
+async function login(endpoint, user, password, page) {
+    console.log("haciendo login");
 
+    const loginStatus = await page.goto(endpoint + 'ClearSee/servlet/mstrWeb?Login');
 
-    <h3> </h3>
+    if (loginStatus.status() == 500) {
+        console.log("Error en el login");
+        return;
+    }
 
+    const loginInput = await page.waitForSelector('#Uid');
 
+    const loginPassword = await page.waitForSelector('#Pwd');
 
+    await loginInput.type(user);
 
+    await loginPassword.type(password);
 
+    const buttonLogin = await page.waitForXPath('//*[@id="3054"]');
 
+    await buttonLogin.click();
+}
 
-
-
-
-    
-
-
-
-
-
+module.exports = { login }</code></pre>
+        </article>
+    </section>
 
 
 
