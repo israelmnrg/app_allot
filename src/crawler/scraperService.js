@@ -1,6 +1,4 @@
-/**
- * @module crawler
- */
+
 const login = require('./login');
 /**
  * Aqui se realiza el web-scrapping de la página especifica que quiere el cliente

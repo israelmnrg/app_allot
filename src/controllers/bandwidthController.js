@@ -1,6 +1,3 @@
-/**
- * @module controllers/bandwidthController
- */
 const bandwidthService = require('../services/bandwidthService');
 const express = require('express');
 /**

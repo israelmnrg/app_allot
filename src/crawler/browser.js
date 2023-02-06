@@ -1,12 +1,5 @@
-/**
- * @module crawler
- */
 const puppeteer = require('puppeteer');
 
-/**
- * Inicia el navegador para hacer el crawler
- * @returns {puppeteer.Browser} devuelve el navegador
- */
 async function initBrowser() {
     let browser;
     try {

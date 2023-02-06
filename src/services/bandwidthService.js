@@ -1,6 +1,4 @@
-/**
- * @module servicses/bandwidthService
- */
+
 const Bandwith = require('../crawler/Bandwidth');
 
 /**

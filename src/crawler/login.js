@@ -1,13 +1,3 @@
-/**
- * @module crawler
- */
-/**
- * Funcion que se encarga de hacer el login en la pagina
- * @param {String} endpoint endpoint de la pagina
- * @param {String} user usuario del login
- * @param {String} password contraseña del usuario
- * @param {String} page pagina que se va a usar para hacer el login
- */
 async function login(endpoint, user, password, page) {
     console.log("haciendo login");
 
