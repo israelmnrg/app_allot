@@ -1,0 +1,37 @@
+{
+  "name": "app_allot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "docs": "jsdoc -c jsdoc.json",
+    "dev": "cross-env NODE_ENV=development nodemon app.js",
+    "start": "cross-env NODE_ENV=production node app.js",
+    "test": "cross-env NODE_ENV=test jest --verbose --detectOpenHandles"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "chart.js": "^4.2.0",
+    "chartjs-node-canvas": "^4.1.6",
+    "cookie-parser": "^1.4.6",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "jest": "^29.3.1",
+    "jest-puppeteer": "^7.0.0",
+    "jsdoc": "^4.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.1.0",
+    "nodemon": "^2.0.20",
+    "pug": "^3.0.2",
+    "puppeteer": "^19.6.3",
+    "supertest": "^6.3.3",
+    "supertest-session": "^4.1.0"
+  }
+}
